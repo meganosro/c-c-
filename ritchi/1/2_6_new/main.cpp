@@ -108,17 +108,6 @@ void invert(int x,int p,int n){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 unsigned char Invert(unsigned char x) 
 {        
     int base = 256;
