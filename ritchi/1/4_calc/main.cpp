@@ -26,6 +26,8 @@ double pop(void);
 int getStr(char c1[]);
 char getch();
 void ungetch(char c);
+double top(void);
+void clear(void);
 /*
  * 
  */
@@ -55,6 +57,12 @@ int main(int argc, char** argv) {
                 op = pop();
                 push( (int)op % (int)pop() );
                 break;
+            case 'p':
+                cout<<top();
+                break;
+            case 'c':
+                clear();
+                break;
             case 0:
                 getchar();
                 break;
@@ -65,6 +73,20 @@ int main(int argc, char** argv) {
     //cout<<isdigit('c');
     getchar();
     return 0;
+}
+
+void clear(void){
+    if( n != 0 ){
+        int i = 0;
+        while( args[i] ){
+            args[i] = 0;
+            i++;
+        }
+    }
+}
+
+double top(void){
+    return (n != 0 ) ? args[n - 1] : -1;
 }
 
 char getch(){
@@ -106,10 +128,18 @@ void ungetch(char c){
       return '0';
   }
 */
+
+bool issome(char c){
+    
+}
+
 int getStr(char c1[]){
     char c,c2 = '_';
     int i = 0, pm = 0;
+    char co1[] = "pri";
+    char co2[] = "clear";
     //cout<<"__1__";
+    //isalpha
     while( ( c1[i] = c = getch() ) == ' ' && c == '\t' );
     
     c1[1] = '\0';
@@ -125,19 +155,40 @@ int getStr(char c1[]){
         }else
             return c;
     }
+    if( isalpha(c) ){
+        int b = 0;
+        char cur = c;
+        while( ( c = getch() ) != '\0' && isalpha(c) && c != ' ' ){
+            //c1[++i] = c;
+            switch( cur ){
+                case 'p':
+                    if( c != co1[b++] ){
+                        return 0;
+                    }
+                    break;
+                case 'c':
+                    if( c != co2[b++] ){
+                        return 0;
+                    }
+                    break;
+            }
+           
+        }
+        return cur;
+    }
    // cout<<"otp='"<<c1[i]<<"-'"<<i<<"'-";
    // c1[i++] = c; 
    // c1[i++] = c2;
-    while( (c = getch() ) != '\0' && isdigit(c) ){
-        c1[++i] = c;
-   // cout<<"otp='"<<c1[i]<<"-'"<<i<<"'-";
-    }
-    if(c == '.'){
-        c1[i] = '.';
-    //    cout<<"__3__";
+    if(isdigit(c)){
         while( (c = getch() ) != '\0' && isdigit(c) ){
             c1[++i] = c;
-  //  cout<<"otp='"<<c1[i]<<"-'"<<i<<"'-";
+       // cout<<"otp='"<<c1[i]<<"-'"<<i<<"'-";
+        }
+        if(c == '.'){
+            c1[i] = '.';
+            while( (c = getch() ) != '\0' && isdigit(c) ){
+                c1[++i] = c;
+            }
         }
     }
     c1[++i] = '\0';
@@ -145,7 +196,6 @@ int getStr(char c1[]){
     if( c != EOF ){
         ungetch( c );
     }
-  //  cout<<"c1=("<<c1<<")";
     return '0';
 }
 
