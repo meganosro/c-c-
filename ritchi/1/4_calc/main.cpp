@@ -30,8 +30,10 @@ void ungetch(char c);
  * 
  */
 int main(int argc, char** argv) {
+    //cout<<atof("-20");
     char c1[MAXARGS];
     char c;
+    double op = 0;
     /**/
     while( (c = getStr(c1)) != EOF ){
         switch(c){
@@ -40,6 +42,21 @@ int main(int argc, char** argv) {
                 break;
             case '+':
                 push( pop() + pop() );
+                break;
+            case '-':
+                op = pop();
+                push( pop() - op );
+                break;
+            case '/':
+                op = pop();
+                push( pop() / op );
+                break;
+            case '%':
+                op = pop();
+                push( (int)op % (int)pop() );
+                break;
+            case 0:
+                getchar();
                 break;
         }
     }
@@ -60,33 +77,75 @@ void ungetch(char c){
         buf[n1++] = c;
     }
 }
-
+/*
+  int getStr(char s[])
+  {
+      int i=0, c, t;
+      while ((s[i] = c = getch()) == ' ' || c == '\t');
+      if (!isdigit(c) && c != '.') {
+          if (c == '-') {
+              if (isdigit(t = getch()) || t == '.') {
+                  s[++i] = t;
+              }
+              else {
+                  ungetch(t);
+                  return c; 
+              }
+          }
+          else {
+              return c;    
+          }
+      }
+      if (isdigit(c))
+          while (isdigit(s[++i] = c = getch()));
+      if (c =='.')  
+          while (isdigit(s[++i] = c = getch()));
+      s[i] = '\0';
+      if (c != EOF)
+          ungetch(c);
+      return '0';
+  }
+*/
 int getStr(char c1[]){
-    char c;
-    int i = 0;
+    char c,c2 = '_';
+    int i = 0, pm = 0;
     //cout<<"__1__";
-    while( ( c1[0] = c = getch() ) == ' ' && c == '\t' );
+    while( ( c1[i] = c = getch() ) == ' ' && c == '\t' );
+    
     c1[1] = '\0';
-    if( !isdigit(c) ){
-        return c;
+   // c2 = getch();
+    if(  !isdigit(c)   ){
+        if( c == '-' ){
+            if( isdigit(c2 = getch()) ){
+                c1[++i] = c2;
+            }else{
+                ungetch(c2);
+                return c;
+            }
+        }else
+            return c;
     }
-    c1[i++] = c;
-    //cout<<"__2__";
+   // cout<<"otp='"<<c1[i]<<"-'"<<i<<"'-";
+   // c1[i++] = c; 
+   // c1[i++] = c2;
     while( (c = getch() ) != '\0' && isdigit(c) ){
-        c1[i++] = c;
+        c1[++i] = c;
+   // cout<<"otp='"<<c1[i]<<"-'"<<i<<"'-";
     }
     if(c == '.'){
         c1[i] = '.';
     //    cout<<"__3__";
         while( (c = getch() ) != '\0' && isdigit(c) ){
             c1[++i] = c;
+  //  cout<<"otp='"<<c1[i]<<"-'"<<i<<"'-";
         }
     }
-    c1[i] = '\0';
+    c1[++i] = '\0';
     //cout<<c;
     if( c != EOF ){
         ungetch( c );
     }
+  //  cout<<"c1=("<<c1<<")";
     return '0';
 }
 
