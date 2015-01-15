@@ -16,6 +16,9 @@ double atof(char c1[]);
 /*
  * 
  */
+int i = 10;
+void mega();
+
 int main(int argc, char** argv) {
     char c1[15] = "mega as bega";
     char c2[15] = "as";
@@ -23,6 +26,8 @@ int main(int argc, char** argv) {
     //cout<<c1<<"--"<<c2;
     //cout<<strstr(c1,c2);
     //cout<<strindex(c1,c2);
+    mega();
+    cout<<i;
     cout<<123+0.5;
     cout<<"\n////\n";
     cout<<atof(c3);
@@ -30,6 +35,10 @@ int main(int argc, char** argv) {
     //cout<<strs
     getchar();
     return 0;
+}
+void mega(){
+    // int i;
+    i = 20;
 }
 /*
   double atof(char s[])
