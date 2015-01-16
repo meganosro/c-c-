@@ -192,7 +192,7 @@ void ungetch(char c){
 */
 
 bool issome(char c){
-    
+    return true;
 }
 
 int getStr(char c1[]){
