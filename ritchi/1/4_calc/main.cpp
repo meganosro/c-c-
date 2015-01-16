@@ -9,11 +9,37 @@
 #include<iostream>
 #include<stdio.h>
 #include<limits.h>
+#include<string.h>
+#include<math.h>
 
 
 using namespace std;
 
 #define MAXARGS 100
+
+class MAP{
+public:
+    MAP(){i = 0;};
+    int i;
+    int args1[100];
+    char args2[100];
+    void setargs( char name,int val ){
+        //if(i > 0){  
+          args2[i] = name;
+          args1[i++] = val;
+        //}
+    }
+    int getargs( char c ){
+        int j = -1;
+        while( args2[++j] != c ){
+            
+        }
+        
+        return args1[j];
+    }
+};
+
+MAP map = MAP();
 
 int n = 0;//count valuue in args
 double args[MAXARGS];
@@ -36,7 +62,21 @@ int main(int argc, char** argv) {
     char c1[MAXARGS];
     char c;
     double op = 0;
-    /**/
+    cout<<"//////\n";
+   // map.setargs('M',100);
+   // cout<<"M="<<map.getargs('M');
+    /*
+    char c_[5] = "mega";
+ 
+    cout<<"////\n";
+    switch( c_ ){
+        case "mega":
+            cout<<"MEGA";
+            break;
+    }
+    cout<<"////\n";
+    */
+    int args[26],nArgs = 0;
     while( (c = getStr(c1)) != EOF ){
         switch(c){
             case '0':
@@ -60,11 +100,33 @@ int main(int argc, char** argv) {
             case 'p':
                 cout<<top();
                 break;
+            case 'y':
+                cout<<pow( pop(),pop() );
+              //  cout<<p;
+                break;
+            case 'i':
+                //cout<<pow( pop(),pop() );
+                //cout<<top();
+              //  cout<<p;
+                break;
             case 'c':
                 clear();
                 break;
+            case 'v':
+                //if( c >= 'A' && c <= 'Z' ){
+                    //cout<<"val='"<<map.getargs(c)<<"'";
+                //}
+                cout<<map.getargs(c1[0])<<endl;
+                break;
             case 0:
-                getchar();
+                cout<<"Error!";
+                //getchar();
+                break;
+            default:
+                /*
+                if( c >= 'A' && c <= 'Z' ){
+                    cout<<"val='"<<map.getargs(c)<<"'";
+                }*/
                 break;
         }
     }
@@ -138,13 +200,15 @@ int getStr(char c1[]){
     int i = 0, pm = 0;
     char co1[] = "pri";
     char co2[] = "clear";
+    char co3[] = "pow";
+    char co4[] = "int";
     //cout<<"__1__";
     //isalpha
     while( ( c1[i] = c = getch() ) == ' ' && c == '\t' );
     
     c1[1] = '\0';
    // c2 = getch();
-    if(  !isdigit(c)   ){
+    if(  !isdigit(c) && !isalpha(c)   ){
         if( c == '-' ){
             if( isdigit(c2 = getch()) ){
                 c1[++i] = c2;
@@ -156,25 +220,64 @@ int getStr(char c1[]){
             return c;
     }
     if( isalpha(c) ){
-        int b = 0;
-        char cur = c;
-        while( ( c = getch() ) != '\0' && isalpha(c) && c != ' ' ){
-            //c1[++i] = c;
-            switch( cur ){
-                case 'p':
-                    if( c != co1[b++] ){
-                        return 0;
-                    }
-                    break;
-                case 'c':
-                    if( c != co2[b++] ){
-                        return 0;
-                    }
-                    break;
-            }
-           
+        /*
+         
+        if( c >= 'A' && c <= 'Z' ){
+            //return map.getargs(c);
+            push( map.getargs(c) );
+            return '0';
         }
-        return cur;
+         
+         */
+        int b = 0;
+        //char cur = c;
+        char command[10] = "";
+        command[b] = c;
+        while( ( c = getch() ) != '\0' && isalpha(c) && c != ' ' ){
+            command[++b] = c;
+        }
+        command[++b] = '\0';
+        //cout<<"'"<<command<<"'";
+        switch( command[0] ){
+            case 'p':
+                if( memcmp(co1,command,3) == 0 ){
+                    return command[0];
+                }else if( memcmp(co3,command,3) == 0 ){
+                    return 'y';
+                }else{
+                    //ungetch(command[0]);
+                    return 0;
+                }
+                break;
+            case 'c':
+                if( memcmp(co2,command,5) == 0 ){
+                    return command[0];
+                }else{
+                    //ungetch(command[0]);
+                    return 0;
+                }
+                break;
+            case 'i':
+                if( memcmp(co4,command,3) == 0 ){
+                    while( ( c = getch() ) == ' ' );
+                    map.setargs(c,pop());
+                    return command[0];
+                }
+                break;
+            default:
+                //ungetch(command[0]);
+                
+                if( command[0] >= 'A' && command[0] <= 'Z' ){
+                    push( map.getargs(command[0]) );
+                    c1[0] = command[0];
+                    c1[1] = '\0';
+                    return 'v';
+                }
+                /* * */
+                return command[0];
+                break;
+        }
+        //return cur;
     }
    // cout<<"otp='"<<c1[i]<<"-'"<<i<<"'-";
    // c1[i++] = c; 
