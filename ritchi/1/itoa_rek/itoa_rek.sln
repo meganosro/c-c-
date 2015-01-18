@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "itoa_rek", "itoa_rek\itoa_rek.vcxproj", "{6BB58009-C881-49AB-9197-2C826539ABB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BB58009-C881-49AB-9197-2C826539ABB1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6BB58009-C881-49AB-9197-2C826539ABB1}.Debug|Win32.Build.0 = Debug|Win32
+		{6BB58009-C881-49AB-9197-2C826539ABB1}.Release|Win32.ActiveCfg = Release|Win32
+		{6BB58009-C881-49AB-9197-2C826539ABB1}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
