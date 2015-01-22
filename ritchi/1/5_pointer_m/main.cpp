@@ -27,6 +27,11 @@ void addL(char *a,char *b){
 int main(int argc, char** argv) {
     char a[30] = "asdasdasd" ;
     char b[5] = "1234";
+    char *c[] = {
+            "laksdl;aksldkal;skd;las",
+            "asld"
+    };
+    int c1[][4] = { {123,321} };
     //a[10] = "asdasd";
     //char * b = &a[2];
     addL(a,b);
