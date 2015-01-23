@@ -54,9 +54,11 @@ char getch();
 void ungetch(char c);
 double top(void);
 void clear(void);
+
 /*
  * 
  */
+
 int main(int argc, char** argv) {
     //cout<<atof("-20");
     char c1[MAXARGS];
